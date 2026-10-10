@@ -28,9 +28,9 @@ async function userRegisterController(req, res) {
         user:{
             _id:user._id,
             email: user.email, 
-            name: user.name
-        }
-        token
+            name: user.name 
+        },
+        token 
     })
 
 }
