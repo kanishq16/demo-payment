@@ -1,40 +1,38 @@
-const userModel= require("../models/user.model")
+const userModel = require("../models/user.model")
 const jwt = require("jsonwebtoken")
 
 async function userRegisterController(req, res) {
-    const {email, password, name} = req.body
+    const { email, password, name } = req.body
 
-    const isExists = await userModel.findOne({
-        email: email
-    })
+    const isExists = await userModel.findOne({ email })
 
-    if (isExists){
+    if (isExists) {
         return res.status(422).json({
             message: "User already exists with email.",
-            status: "failed", 
-    }) 
+            status: "failed",
+        })
     }
 
-   
-    const user = await userModel.create({
-        email, password, name
+    const user = await userModel.create({ email, password, name })
+
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: "3d" })
+
+    res.cookie("token", token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "strict",
     })
 
-    const token = jwt.sign({userId:user._id}, process.env.JWT_SECRET, {expiresIn: "3d"}) 
-
-    res.cookies("token", token)
-
-    res.status(201).json({
-        user:{
-            _id:user._id,
-            email: user.email, 
-            name: user.name 
+    return res.status(201).json({
+        user: {
+            _id: user._id,
+            email: user.email,
+            name: user.name,
         },
-        token 
+        token,
     })
-
 }
 
 module.exports = {
-    userRegisterController
+    userRegisterController,
 }
