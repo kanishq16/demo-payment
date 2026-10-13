@@ -1,3 +1,4 @@
+const dns = require("node:dns")
 const mongoose = require("mongoose")
 
 async function connectToDB() {
@@ -5,6 +6,11 @@ async function connectToDB() {
 
     if (!mongoUri) {
         throw new Error("MONGO_URI is missing. Add it to your .env file.")
+    }
+
+    const dnsServers = process.env.MONGODB_DNS_SERVERS
+    if (dnsServers) {
+        dns.setServers(dnsServers.split(",").map(server => server.trim()).filter(Boolean))
     }
 
     try {
