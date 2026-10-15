@@ -1,13 +1,13 @@
-const express = require ("express")
-const cookieParse = require("cookie-parser")
-const authRouter = require("./routes/auth.routes")
+const express = require ("express");
+const cookieParse = require("cookie-parser");
+const authRouter = require("./routes/auth.routes");
 
-const app = express()
+const app = express();
 
 
-app.use(express.json()) 
-app.use(cookieParse()) 
+app.use(express.json()) ;
+app.use(cookieParse()) ;
 
-app.use("/api/auth", authRouter)
+app.use("/api/auth", authRouter);
 
-module.exports = app
+module.exports = app;
