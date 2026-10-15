@@ -5,12 +5,12 @@ async function connectToDB() {
     const mongoUri = process.env.MONGO_URI
 
     if (!mongoUri) {
-        throw new Error("MONGO_URI is missing. Add it to your .env file.")
+        throw new Error("MONGO_URI is missing. Add it to your .env file.");
     }
 
     const dnsServers = process.env.MONGODB_DNS_SERVERS
     if (dnsServers) {
-        dns.setServers(dnsServers.split(",").map(server => server.trim()).filter(Boolean))
+        dns.setServers(dnsServers.split(",").map(server => server.trim()).filter(Boolean));
     }
 
     try {
