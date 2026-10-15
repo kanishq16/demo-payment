@@ -6,3 +6,5 @@ we are going to step onside code with parts.
 aakar atlas or compass ko khud sahi karna haii usko khud banana haii. 
 
 develop mogodb atlas and compass accordingly !!
+
+abhi hum code ko or customize karenge uske phele saare cheeze setup !!
