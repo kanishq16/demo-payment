@@ -8,3 +8,14 @@ aakar atlas or compass ko khud sahi karna haii usko khud banana haii.
 develop mogodb atlas and compass accordingly !!
 
 abhi hum code ko or customize karenge uske phele saare cheeze setup !!
+
+
+uske andar postman meii body : 
+{
+    "user":{
+        "email" : "test@test.com",
+        "password" : "test123",
+        "name": "test test"
+    },
+    "token" : "token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YWQyNTUwY2Q0Y2ZlZGI4ZjFkMWQzNTQiLCJpYXQiOjE3OTIxNjkyMjgsImV4cCI6MTc5MjQyODQyOH0.K7lJaMNp8eizMrCLyiK7vZkOpnvAo7aYSr6YJvUragQ; Path=/; HttpOnly;" 
+}
