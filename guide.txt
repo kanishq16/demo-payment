@@ -1,7 +1,7 @@
 making a advanced bank process 
 
 we are going to step onside code with parts. 
-56:35
+1:02:51
 
 aakar atlas or compass ko khud sahi karna haii usko khud banana haii. 
 
@@ -19,3 +19,5 @@ uske andar postman meii body :
     },
     "token" : "token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YWQyNTUwY2Q0Y2ZlZGI4ZjFkMWQzNTQiLCJpYXQiOjE3OTIxNjkyMjgsImV4cCI6MTc5MjQyODQyOH0.K7lJaMNp8eizMrCLyiK7vZkOpnvAo7aYSr6YJvUragQ; Path=/; HttpOnly;" 
 }
+
+add nodemailer from shreiyansa
