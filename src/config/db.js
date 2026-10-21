@@ -1,8 +1,8 @@
-const dns = require("node:dns")
-const mongoose = require("mongoose")
+const dns = require("node:dns");
+const mongoose = require("mongoose");
 
 async function connectToDB() {
-    const mongoUri = process.env.MONGO_URI
+    const mongoUri = process.env.MONGO_URI;
 
     if (!mongoUri) {
         throw new Error("MONGO_URI is missing. Add it to your .env file.");
