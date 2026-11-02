@@ -1,79 +1,54 @@
-const userModel = require("../models/user.model")
-const jwt = require("jsonwebtoken")
+const accountModel = require("../models/account.model");
 
-async function userRegisterController(req, res) {
-    const { email, password, name } = req.body
 
-    const isExists = await userModel.findOne({ 
-        email : email
+async function createAccountController(req, res) {
+
+    const user = req.user;
+
+    const account = await accountModel.create({
+        user: user._id
     })
 
-    if (isExists) {
-        return res.status(422).json({
-            message: "User already exists with email.",
-            status: "failed",
-        })
-    }
-
-    const user = await userModel.create({ email, password, name })
-
-    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: "3d" })
-
-    res.cookie("token", token, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "strict",
+    res.status(201).json({
+        account
     })
 
-    return res.status(201).json({
-        user: {
-            _id: user._id,
-            email: user.email,
-            name: user.name,
-        },
-        token,
+}
+
+async function getUserAccountsController(req, res) {
+
+    const accounts = await accountModel.find({ user: req.user._id });
+
+    res.status(200).json({
+        accounts
     })
 }
 
-async function userLoginController(req, res) {
-    const { email, password } = req.body
+async function getAccountBalanceController(req, res) {
+    const { accountId } = req.params;
 
-    const user = await userModel.findOne({email}).select("+password") 
-
-    if(!user) {
-        return res.status(401).json({
-            message: "Invalid email or password"
-        })
-    }
-
-    const isValidPassword = await user.comparePassword(password)
-
-    if(!isValidPassword) {
-        return res.status(401).json({
-            message: "Invalid email or password"
-        })
-    }
-
-      const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: "3d" })
-
-    res.cookie("token", token, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "strict",
+    const account = await accountModel.findOne({
+        _id: accountId,
+        user: req.user._id
     })
 
-    return res.status(200).json({
-        user: {
-            _id: user._id,
-            email: user.email,
-            name: user.name,
-        },
-        token,
+    if (!account) {
+        return res.status(404).json({
+            message: "Account not found"
+        })
+    }
+
+    const balance = await account.getBalance();
+
+    res.status(200).json({
+        accountId: account._id,
+        balance: balance
     })
 }
 
 
 module.exports = {
-    userRegisterController,
-    userLoginController
+    createAccountController,
+    getUserAccountsController,
+    getAccountBalanceController
 }
